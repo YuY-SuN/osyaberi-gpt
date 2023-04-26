@@ -5,3 +5,6 @@
 - voicevox_core, voicevox_engineがインストールされている
 - whisperがインストールされている
 - pyaudioがインストールされている
+- pydubがインストールされている
+- gttsがインストールされている
+- python3.10

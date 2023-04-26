@@ -10,8 +10,8 @@ import wave
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
-RECORD_SECONDS = 10
+RATE = 16000
+RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
 
 # PyAudioオブジェクトを作成する
@@ -51,7 +51,7 @@ wf.close()
 ## TODO: ここもopenaiでもいいかも知れぬ
 import whisper
 
-model = whisper.load_model("medium") 
+model = whisper.load_model("small") 
 text  = model.transcribe("output.wav")["text"]
 print("")
 print(text)
@@ -70,8 +70,12 @@ result = openai.ChatCompletion.create(
 ,   messages=[
         {"role":"user", "content" : text }
     ]
+,   stream=True
 )
-text   = result["choices"][0]["message"]["content"]
+for chunk in result:
+    if "content" in chunk["choices"][0]["delta"] :
+        print(chunk["choices"][0]["delta"]["content"])
+        text += chunk["choices"][0]["delta"]["content"]
 print("")
 print(text)
 print("")

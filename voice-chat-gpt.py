@@ -32,7 +32,7 @@ import os
 model = whisper.load_model("large") 
 
 # GPT(API)の準備
-creds = json.load( open("./osyaberi-gpt.json"))
+creds = json.load( open("./cred.json"))
 openai.organization = creds["openai_org"]
 openai.api_key      = creds["openai_api_key"]
 
